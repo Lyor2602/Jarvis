@@ -1,0 +1,41 @@
+html {
+  background-color: black;
+  background-image: url(https://static.collectui.com/shots/3299759/artificial-intelligence-ui-exploration-for-os-by-fantasy-large);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0;
+}
+
+h1 {
+}
+
+body {
+}
+
+.bottom {
+  color: white;
+  font-family: serif;
+  padding: 40px;
+  text-align: center;
+  font-weight: 100;
+}
+
+
+.header {
+  font-size: 150%;
+  color: white;
+  padding: 30px;
+}
+
+.preText {
+  color: white;
+  text-align: left;
+  width: 750px;
+  word-wrap: break-word;
+}
+
+p{
+  font-size: 100%;
+  font-family: Arial;
+  font-weight: 300;
+}

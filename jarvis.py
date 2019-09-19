@@ -55,17 +55,28 @@ def assistant(command):
     if 'I\'m home' in command:
         talkToMe('Welcome back ' + str(x) + ', what can I do')
 
-    elif 'Mairluh' in command:
+    elif 'Amy' in command:
         talkToMe('What\'s the matter sir?')
         matter = myCommand()
         if 'tired' in matter:
-            talkToMe()
+            talkToMe('Would you like me to set an alarm')
+            o1 = myCommand()
+            if 'yes' in o1:
+                talkToMe()
+            if 'no' in o1:
+                talkToMe('Owh, what else can I do')
         elif 'sad' in matter:
-            talkToMe()
+            talkToMe('I can open up a playlist so you can zone out')
+            o2 = myCommand()
+            if 'yes' in o2:
+                url = 'https://open.spotify.com/playlist/3fXi8ZOs5jiVP4E8VeaOIe'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
         elif 'happy' in matter:
-            talkToMe()
+            talkToMe('I\'m glad to hear that, if you need me I will be here')
         elif 'you help' in matter:
-            talkToMe()
+            talkToMe('In what way could I help?')
+            o3 = myCommand()
         elif 'don\'t know' in matter:
             talkToMe()
 
@@ -117,9 +128,45 @@ def assistant(command):
         talkToMe('Sorry, the lights are not set up just yet')
 
     elif 'Spotify' in command:
-        url = 'https://open.spotify.com/browse/featured'
-        chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-        webbrowser.get(chrome_path).open(url)
+        talkToMe('Would you like to open a genre, choose from your presets or just open spotify?')
+        time.sleep(3)
+        open = myCommand()
+        if 'genre' in open:
+            talkToMe('what genre?')
+            genre = myCommand()
+            url = 'https://open.spotify.com/view/' + genre + '-page'
+            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+            webbrowser.get(chrome_path).open(url)
+        elif 'Presets' in open:
+            talkToMe('which playlist would you like?')
+            playlist = myCommand()
+            if 'random' in playlist:
+                url = 'https://open.spotify.com/playlist/2jXdNcw5VtwEzR2eTsOg7M'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+            elif 'calm' in playlist:
+                url = 'https://open.spotify.com/playlist/3fXi8ZOs5jiVP4E8VeaOIe'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+            elif 'dance' in playlist:
+                url = 'https://open.spotify.com/playlist/0X3Lki36sx0W1TksjA14Tx'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+            elif 'workout' in playlist:
+                url = 'https://open.spotify.com/playlist/37i9dQZF1DX76t638V6CA8'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+            elif 'rap' in playlist:
+                url = 'https://open.spotify.com/playlist/4ISsZf8PzRtNgf6LQpby5q'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+
+
+        elif 'just' in open:
+            url = 'https://open.spotify.com/browse/featured'
+            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+            webbrowser.get(chrome_path).open(url)
+
 
     elif 'set the mood' in command:
         winsound.PlaySound('LGIO', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
@@ -240,7 +287,8 @@ def assistant(command):
     else:
         print("what do you mean with " + command)
 
-talkToMe('Hello sir, My name is Mairluh, if you need something, just let me know.')
+webbrowser.open('jarvis.html')
+talkToMe('Hello sir, My name is Amy, if you need something, just let me know.')
 time.sleep(3)
 
 while True:
