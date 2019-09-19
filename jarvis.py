@@ -55,8 +55,26 @@ def assistant(command):
     if 'I\'m home' in command:
         talkToMe('Welcome back ' + str(x) + ', what can I do')
 
+    elif 'Mairluh' in command:
+        talkToMe('What\'s the matter sir?')
+        matter = myCommand()
+        if 'tired' in matter:
+            talkToMe()
+        elif 'sad' in matter:
+            talkToMe()
+        elif 'happy' in matter:
+            talkToMe()
+        elif 'you help' in matter:
+            talkToMe()
+        elif 'don\'t know' in matter:
+            talkToMe()
+
     elif 'you there' in command:
         talkToMe('Yes ' + str(x) + ', at your service')
+
+    elif 'set alarm' in command:
+        talkToMe('For when should the alarm be set')
+        alarm = myCommand()
 
     elif 'sir' in command:
         talkToMe('what should I call you then?')
@@ -106,6 +124,11 @@ def assistant(command):
     elif 'set the mood' in command:
         winsound.PlaySound('LGIO', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
 
+    elif 'intruder' in command:
+        talkToMe('Who is in my swamp?')
+        time.sleep(2)
+        winsound.PlaySound('shrek', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
+
     elif 'schedule' in command:
         schedule = []
         if not schedule:
@@ -148,7 +171,7 @@ def assistant(command):
         talkToMe('It is ' + str(dt_string))
         time.sleep(7)
         if date.today().weekday() < 5:
-            talkToMe('Holiday bitches')
+            talkToMe('It is a school day today')
         elif date.today().weekday() > 5:
             talkToMe('enjoy your weekend')
 
@@ -216,6 +239,9 @@ def assistant(command):
             exit()
     else:
         print("what do you mean with " + command)
+
+talkToMe('Hello sir, My name is Mairluh, if you need something, just let me know.')
+time.sleep(3)
 
 while True:
     stop = False
