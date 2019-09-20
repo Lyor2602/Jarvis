@@ -130,7 +130,7 @@ def assistant(command):
     elif 'Spotify' in command:
         talkToMe('Would you like to open a genre, choose from your presets or just open spotify?')
         time.sleep(3)
-        open = myCommand()
+        open = myCommand().strip
         if 'genre' in open:
             talkToMe('what genre?')
             genre = myCommand()
