@@ -1,3 +1,4 @@
+#libraries
 import time
 from gtts import gTTS
 import speech_recognition as sr
@@ -7,16 +8,15 @@ import smtplib
 import pyaudio
 from playsound import playsound
 import winsound
-from weather import Weather, Unit
 import subprocess
 from datetime import datetime
 from datetime import date
 import datetime
 import requests
 from bs4 import BeautifulSoup
+from pynput.keyboard import Key, Controller
 
-
-
+keyboard = Controller()
 
 def talkToMe(audio):
     print(audio)
@@ -52,7 +52,7 @@ def assistant(command):
 
     x = 'sir'
 
-    if 'I\'m home' in command:
+    if "I'm home" in command:
         talkToMe('Welcome back ' + str(x) + ', what can I do')
 
     elif 'Amy' in command:
@@ -80,6 +80,22 @@ def assistant(command):
         elif 'don\'t know' in matter:
             talkToMe()
 
+    elif 'stop' in command:
+        keyboard.press(Key.space)
+        keyboard.release(Key.space)
+
+    elif 'louder' in command:
+        for i in range(12):
+            keyboard.press(Key.media_volume_up)
+            keyboard.release(Key.media_volume_up)
+
+    elif 'softer' in command:
+        for i in range(6):
+            keyboard.press(Key.media_volume_down)
+            keyboard.release(Key.media_volume_down)
+
+
+
     elif 'you there' in command:
         talkToMe('Yes ' + str(x) + ', at your service')
 
@@ -93,22 +109,80 @@ def assistant(command):
         talkToMe('okay ' + str(x))
 
     elif 'let\'s work' in command:
-        winsound.PlaySound('BIB', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
+        url = 'https://open.spotify.com/playlist/3HcyVrCW7PiqOc2JOIBZa7'
+        chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+        webbrowser.get(chrome_path).open(url)
+
 
     elif 'play music' in command:
-        talkToMe('what song would you like')
-        song = myCommand()
-        if 'Black' in song:
-            winsound.PlaySound('BIB', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
-        elif 'sunflower' in song:
-            winsound.PlaySound('Sun', winsound.SND_FILENAME | winsound.SND_ASYNC| winsound.SND_LOOP)
-        elif 'body' in song:
-            winsound.PlaySound('Body', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
-        elif 'Love' in song:
-            winsound.PlaySound('Love', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
+        talkToMe('Would you like to open a genre, choose from your playlists or just open spotify?')
+        time.sleep(3)
+        open = myCommand().strip()
+        if 'genre' in open:
+            talkToMe('what genre?')
+            genre = myCommand()
+            url = 'https://open.spotify.com/view/' + genre + '-page'
+            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+            webbrowser.get(chrome_path).open(url)
+        elif 'my' in open:
+            talkToMe('which playlist would you like?')
+            playlist = myCommand()
+            if 'random' in playlist:
+                url = 'https://open.spotify.com/playlist/2jXdNcw5VtwEzR2eTsOg7M'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+                time.sleep(3)
+                keyboard.press(Key.space)
+                keyboard.release(Key.space)
+            elif 'calm' in playlist:
+                url = 'https://open.spotify.com/playlist/3fXi8ZOs5jiVP4E8VeaOIe'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+                time.sleep(3)
+                keyboard.press(Key.space)
+                keyboard.release(Key.space)
+            elif 'dance' in playlist:
+                url = 'https://open.spotify.com/playlist/0X3Lki36sx0W1TksjA14Tx'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+                time.sleep(3)
+                keyboard.press(Key.space)
+                keyboard.release(Key.space)
+            elif 'workout' in playlist:
+                url = 'https://open.spotify.com/playlist/37i9dQZF1DX76t638V6CA8'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+                time.sleep(3)
+                keyboard.press(Key.space)
+                keyboard.release(Key.space)
+            elif 'rap' in playlist:
+                url = 'https://open.spotify.com/playlist/4ISsZf8PzRtNgf6LQpby5q'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+                time.sleep(3)
+                keyboard.press(Key.space)
+                keyboard.release(Key.space)
+            elif 'work' in playlist:
+                url = 'https://open.spotify.com/playlist/3HcyVrCW7PiqOc2JOIBZa7'
+                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+                webbrowser.get(chrome_path).open(url)
+                time.sleep(3)
+                keyboard.press(Key.space)
+                keyboard.release(Key.space)
+            else:
+                talkToMe('I do not have a preset for this')
 
-    elif 'stop' in command:
-        winsound.PlaySound(None, winsound.SND_ASYNC)
+        elif 'just' in open:
+            url = 'https://open.spotify.com/browse/featured'
+            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+            webbrowser.get(chrome_path).open(url)
+
+        elif 'search' in open:
+            talkToMe('what would you like to search for')
+            search = myCommand()
+            url = 'https://open.spotify.com/search/' + search
+            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+            webbrowser.get(chrome_path).open(url)
 
     elif 'Netflix' in command:
         talkToMe('What show would you like to see?')
@@ -127,54 +201,13 @@ def assistant(command):
         light = myCommand()
         talkToMe('Sorry, the lights are not set up just yet')
 
-    elif 'Spotify' in command:
-        talkToMe('Would you like to open a genre, choose from your presets or just open spotify?')
-        time.sleep(3)
-        open = myCommand().strip
-        if 'genre' in open:
-            talkToMe('what genre?')
-            genre = myCommand()
-            url = 'https://open.spotify.com/view/' + genre + '-page'
-            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-            webbrowser.get(chrome_path).open(url)
-        elif 'Presets' in open:
-            talkToMe('which playlist would you like?')
-            playlist = myCommand()
-            if 'random' in playlist:
-                url = 'https://open.spotify.com/playlist/2jXdNcw5VtwEzR2eTsOg7M'
-                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-                webbrowser.get(chrome_path).open(url)
-            elif 'calm' in playlist:
-                url = 'https://open.spotify.com/playlist/3fXi8ZOs5jiVP4E8VeaOIe'
-                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-                webbrowser.get(chrome_path).open(url)
-            elif 'dance' in playlist:
-                url = 'https://open.spotify.com/playlist/0X3Lki36sx0W1TksjA14Tx'
-                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-                webbrowser.get(chrome_path).open(url)
-            elif 'workout' in playlist:
-                url = 'https://open.spotify.com/playlist/37i9dQZF1DX76t638V6CA8'
-                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-                webbrowser.get(chrome_path).open(url)
-            elif 'rap' in playlist:
-                url = 'https://open.spotify.com/playlist/4ISsZf8PzRtNgf6LQpby5q'
-                chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-                webbrowser.get(chrome_path).open(url)
-
-
-        elif 'just' in open:
-            url = 'https://open.spotify.com/browse/featured'
-            chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
-            webbrowser.get(chrome_path).open(url)
 
 
     elif 'set the mood' in command:
-        winsound.PlaySound('LGIO', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
+        url = 'https://open.spotify.com/playlist/4ZNNQpLPtocoGWMTYSYhXs'
+        chrome_path = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s"
+        webbrowser.get(chrome_path).open(url)
 
-    elif 'intruder' in command:
-        talkToMe('Who is in my swamp?')
-        time.sleep(2)
-        winsound.PlaySound('shrek', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
 
     elif 'schedule' in command:
         schedule = []
@@ -204,23 +237,28 @@ def assistant(command):
         if 'yes' in option:
             os.system("shutdown.exe /h")
 
-    elif 'we did it' in command:
-        winsound.PlaySound('Pull', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
-
     elif 'what should I do' in command:
         talkToMe('you tell me')
 
     elif 'good morning' in command:
         now = datetime.datetime.now()
-        dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
-        talkToMe('Goodmorning daddy')
+        dt_string = now.strftime("%d/%m/%Y %H:%M")
+        result = requests.get("https://www.weer.nl/")
+        src = result.content
+        y = BeautifulSoup(src, 'lxml')
+        c = y.find("h1").findAll(text=True, recursive=False)
+        talkToMe('Goodmorning')
         time.sleep(1)
         talkToMe('It is ' + str(dt_string))
-        time.sleep(7)
+        time.sleep(2)
         if date.today().weekday() < 5:
             talkToMe('It is a school day today')
         elif date.today().weekday() > 5:
             talkToMe('enjoy your weekend')
+
+
+        for i in c:
+            talkToMe("Today it is " + str(i))
 
 
 
@@ -260,27 +298,15 @@ def assistant(command):
     elif 'what\'s up' in command:
         talkToMe('Chillin bro')
 
-    elif 'email' in command:
-        talkToMe('who is the recipient')
-        recipient = myCommand()
+    elif 'weather' in command:
+        result = requests.get("https://www.weer.nl/")
+        src = result.content
+        y = BeautifulSoup(src, 'lxml')
 
-        if 'john' in recipient:
-            talkToMe("what should i say")
-            content = myCommand()
+        c = y.find("h1").findAll(text=True, recursive=False)
 
-            mail = smptlib.SMTP('smtp.gmail.com', 587)
-
-            mail.ehlo()
-
-            mail.starttls()
-
-            mail.login('109771@st-maartenscollege.nl', '')
-
-            mail.sendmail('PERSON NAME', 'EMAILaddress@email.com', content)
-
-            mail.close()
-
-            talkToMe('Email sent')
+        for i in c:
+            talkToMe("Today it is " + str(i))
 
     elif 'exit' in command:
             exit()
@@ -288,17 +314,8 @@ def assistant(command):
         print("what do you mean with " + command)
 
 webbrowser.open('jarvis.html')
-talkToMe('Hello sir, My name is Amy, if you need something, just let me know.')
+talkToMe('Hello sir')
 time.sleep(3)
 
 while True:
-    stop = False
-    while stop == False:
-        rn = str(datetime.datetime.now().time())
-        if rn > "09:30:00.000000" and rn < "09:30:30.000000":
-            stop = True
-            winsound.PlaySound('Morning', winsound.SND_FILENAME | winsound.SND_ASYNC | winsound.SND_LOOP)
-            time.sleep(25)
-        elif rn > "09:30:30.000000" and rn < "23:30:00.000000":
-            stop = True
-            assistant(myCommand())
+    assistant(myCommand())
